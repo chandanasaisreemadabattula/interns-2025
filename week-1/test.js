@@ -19,7 +19,7 @@ function runTest1(solve) {
   ];
 
   const results = tests.map((test, idx) => {
-    const actual = solve(test.input);
+    const actual = solve(test.input.name, test.input.score);
     const outcome = actual === test.output ? "Passed" : "Failed";
     return {
       testNumber: idx + 1,
@@ -61,7 +61,11 @@ function runTest2(solve) {
       output: "Student Bob has failed",
     },
     {
-      input: { name: "Jake", score: 16, template: "{{name}} got {{score}} {{output}}" },
+      input: {
+        name: "Jake",
+        score: 16,
+        template: "{{name}} got {{score}} {{output}}",
+      },
       output: "Jake got 16 {{output}}",
     },
     {
@@ -75,7 +79,11 @@ function runTest2(solve) {
   ];
 
   const results = tests.map((test, idx) => {
-    const actual = solve(test.input);
+    const actual = solve(
+      test.input.name,
+      test.input.score,
+      test.input.template
+    );
     const outcome = actual === test.output ? "Passed" : "Failed";
     return {
       testNumber: idx + 1,
@@ -87,12 +95,13 @@ function runTest2(solve) {
 
   // Create table HTML
   let tableHtml = '<table border="1" style="border-collapse:collapse;">';
-  tableHtml += '<tr><th>Test #</th><th>Status</th><th>Output</th><th>Expected</th></tr>';
+  tableHtml +=
+    "<tr><th>Test #</th><th>Status</th><th>Output</th><th>Expected</th></tr>";
   results.forEach((r) => {
     tableHtml += `<tr><td>${r.testNumber}</td><td class="${r.status}">${r.status}</td><td>${r.actual}</td><td>${r.expected}</td></tr>`;
   });
-  tableHtml += '</table>';
+  tableHtml += "</table>";
 
   // Show in #output2 div
-  document.getElementById('output2').innerHTML = tableHtml;
+  document.getElementById("output2").innerHTML = tableHtml;
 }
